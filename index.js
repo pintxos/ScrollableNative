@@ -20,7 +20,7 @@
 		_defaults = {
 			orientation: 'horizontal',
 			selectors: {
-				scrollableEl: '> .main > .wrap'
+				scrollableEl: undefined
 			}
 		};
 
