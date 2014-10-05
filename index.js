@@ -44,7 +44,7 @@
 		----------------------------------------------- */
 		var ScrollableNative = function (el, options) {
 			this._settings = $.extend(true, {}, _default, options);
-			Component.call(el, this._settings);
+			Component.call(this, el, this._settings);
 		};
 
 		inherit(ScrollableNative, Component);
