@@ -6,12 +6,21 @@
 	if(typeof define !== 'function') {
 		window.define = function(deps, definition) {
 			window.pintxos = window.pintxos || {};
-			window.pintxos.ScrollableNative = definition();
+			window.pintxos.ScrollableNative = definition(jQuery, pintxos.inherit, pintxos.Component);
 			define = null;
 		};
 	}
 
-	define([], function () {
+	define(
+	[
+		'jQuery',
+		'pintxos-inherit',
+		'pintxos-component'
+	], function (
+		$,
+		inherit,
+		Component
+	) {
 
 		var ScrollableNative, _defaults, _props;
 
