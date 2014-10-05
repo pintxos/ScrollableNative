@@ -51,7 +51,7 @@
 
 		/* Constructor
 		----------------------------------------------- */
-		var ScrollableNative = function (el, options) {
+		ScrollableNative = function (el, options) {
 			this._settings = $.extend(true, {}, _default, options);
 			Component.call(this, el, this._settings);
 		};
