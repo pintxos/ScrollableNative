@@ -1,5 +1,5 @@
 {
-  "name": "pintxos-scrollablenative",
+  "name": "pintxos-scrollable_native",
   "version": "0.0.0",
   "homepage": "https://github.com/pintxos/ScrollableNative",
   "ignore": [
@@ -14,7 +14,7 @@
     "Jelle Versele"
   ],
   "dependencies": {
-    "jquery": "~2.1.1",
+    "jquery": ">= 1.7.0",
     "pintxos-inherit": "~2.0.0",
     "pintxos-component": "~1.0.2"
   }
