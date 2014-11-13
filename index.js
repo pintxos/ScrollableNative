@@ -61,15 +61,6 @@
 
 		/* Methods
 		----------------------------------------------- */
-
-		/**
-		 * All bootstrap logic should go here
-		 * @return {void}
-		 */
-		ScrollableNative.prototype.init = function () {
-			Component._super.init.call(this);
-		};
-
 		ScrollableNative.prototype._getProp = function (prop) {
 			return _props[this._settings.orientation][prop];
 		};
