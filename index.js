@@ -96,31 +96,7 @@
 		 * @return {jQuery}
 		 */
 		ScrollableNative.prototype.getScrollableEl = function () {
-
-			var selector;
-
-			if(typeof this._scrollable === 'undefined') {
-
-				selector = this.getSettings().selectors.scrollableEl;
-
-				if(typeof selector === 'undefined') {
-
-					// defaults to getEl()
-					this._scrollable = this.getEl();
-
-				}else if(typeof selector === 'string') {
-
-					// selector
-					this._scrollable = this._query(selector);
-				}else {
-
-					// jQuery object
-					this._scrollable = selector;
-				}
-
-			}
-
-			return this._scrollable;
+			return this._resolveElement(this.getSettings().selectors.scrollableEl);
 		};
 
 

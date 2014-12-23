@@ -16,6 +16,6 @@
   "dependencies": {
     "jquery": ">= 1.7.0",
     "pintxos-inherit": "~2.0.0",
-    "pintxos-component": "~1.0.2"
+    "pintxos-component": "~1.1.2"
   }
 }
