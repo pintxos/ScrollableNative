@@ -1,0 +1,31 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.container {
+	overflow: hidden;
+	position: relative;
+	margin: 0 auto;
+}
+
+	.container * {
+		width: 200px;
+		height: 200px;
+		background: #ff0000;
+	}
+
+.container--horizontal {
+	white-space: nowrap;
+	width: 300px;
+}
+
+	.container--horizontal * {
+		display: inline-block;
+	}
+
+.container--vertical {
+	width: 200px;
+	height: 300px;
+}
