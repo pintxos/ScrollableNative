@@ -6,8 +6,8 @@ var config = {
 		'bower_components/pintxos-inherit/index.js',
 		'bower_components/pintxos-destroyable/index.js',
 		'bower_components/pintxos-component/index.js',
-		'tests/*.js',
-		'index.js'
+		'index.js',
+		'tests/*.js'
 	]
 };
 

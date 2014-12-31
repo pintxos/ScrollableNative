@@ -1,60 +1,53 @@
 'use strict';
 
-var scrollable, $div;
+var scrollable, $div, props;
 
 jasmine.getFixtures().fixturesPath = '/base/tests/fixtures/';
 jasmine.getStyleFixtures().fixturesPath = '/base/tests/fixtures/';
 
-function setUpScrollable(options) {
-	$div = $('.container');
-	scrollable = new pintxos.ScrollableNative($div[0], options);
-	scrollable.init();
-}
+props = {
+	horizontal: {
+		scrollPos: 'scrollLeft',
+		scrollSize: 'scrollWidth',
+		size: 'width',
+		offset: 'left'
+	},
+	vertical: {
+		scrollPos: 'scrollTop',
+		scrollSize: 'scrollHeight',
+		size: 'height',
+		offset: 'top'
+	}
+};
 
-beforeEach(function () {
-
-	loadStyleFixtures('style.css');
-});
-
-describe('general', function () {
-
+describe('horizontal', function () {
 	sharedTests('horizontal');
-	sharedTests('vertical');
-
-
 });
+
+describe('vertical', function () {
+	sharedTests('vertical');
+})
 
 
 function sharedTests (orientation) {
 
-	loadFixtures(orientation + '.html');
-
-
-
-	it('should work', function () {
-		expect(true).toBe(true);
-	})
-}
-
-
-
-
-describe('horizontal scrolling', function () {
-
 	beforeEach(function () {
+		loadStyleFixtures('style.css');
+		loadFixtures(orientation + '.html');
 
-		loadFixtures('horizontal.html');
-
-		setUpScrollable({
-			orientation: 'horizontal'
+		$div = $('.container');
+		scrollable = new pintxos.ScrollableNative($div[0], {
+			orientation: orientation
 		});
+		scrollable.init();
+
 	});
 
 	afterEach(function () {
 		scrollable.destroy();
 	});
 
-	it("should set scrollLeft", function () {
+	it("should set scrollLeft/scrollTop using setScrollPos()", function () {
 
 		var pos;
 
@@ -62,73 +55,48 @@ describe('horizontal scrolling', function () {
 
 		scrollable.setScrollPos(pos);
 
-		expect($div.scrollLeft()).toBe(pos);
+		expect($div[props[orientation].scrollPos]()).toBe(pos);
 		expect(scrollable.getScrollPos()).toBe(pos);
 	});
 
 	it("should get the maskwidth correct", function () {
-
-		expect(scrollable.getMaskSize()).toBe($div.width());
+		expect(scrollable.getMaskSize()).toBe($div[props[orientation].size]());
 	});
 
-	it("should return the right maximum scroll position", function () {
+	it("should return the maximum scroll position", function () {
 
 		var maxScrollPos;
 
-		maxScrollPos = $div[0].scrollWidth - $div.width();
+		maxScrollPos = $div[0][props[orientation].scrollSize] - $div[props[orientation].size]();
 		expect(maxScrollPos).toBe(scrollable.getMaxScrollPos());
 	});
 
-
-
-	it('should returns the right properties', function () {
-		expect(scrollable._getProp('scrollPos')).toBe('scrollLeft');
-		expect(scrollable._getProp('scrollSize')).toBe('scrollWidth');
-		expect(scrollable._getProp('size')).toBe('width');
-		expect(scrollable._getProp('offset')).toBe('left');
-	});
-});
-
-describe('vertical scrolling', function () {
-
-	beforeEach(function () {
-
-		loadFixtures('vertical.html');
-
-		setUpScrollable({
-			orientation: 'vertical'
-		});
+	it('_getProp() should return the right properties taking the orientation into account', function () {
+		expect(scrollable._getProp('scrollPos')).toBe(props[orientation].scrollPos);
+		expect(scrollable._getProp('scrollSize')).toBe(props[orientation].scrollSize);
+		expect(scrollable._getProp('size')).toBe(props[orientation].size);
+		expect(scrollable._getProp('offset')).toBe(props[orientation].offset);
 	});
 
-	it("should set scrollTop", function () {
+	it('should indicate whether or not the beginning or the end of the scrollable container is reached', function () {
+		var maxScrollPos, offset;
 
-		var pos;
+		maxScrollPos = $div[0][props[orientation].scrollSize] - $div[props[orientation].size]();
+		offset = 10;
 
-		pos = 10;
+		scrollable.setScrollPos(0);
+		expect(scrollable.isBeginReached()).toBe(true);
 
-		$div.scrollTop(10);
-		expect($div.scrollTop()).toBe(pos);
+		scrollable.setScrollPos(maxScrollPos);
+		expect(scrollable.isEndReached()).toBe(true);
+
+		scrollable.setScrollPos(offset);
+		expect(scrollable.isBeginReached(offset)).toBe(true);
+
+		scrollable.setScrollPos(maxScrollPos - offset);
+		expect(scrollable.isEndReached(offset)).toBe(true);
 	});
 
-	it("should get the mask height correct", function () {
+}
 
-		expect(scrollable.getMaskSize()).toBe($div.height());
-	});
-
-	it("should return the right maximum scroll position", function () {
-
-		var maxScrollPos;
-
-		maxScrollPos = $div[0].scrollHeight - $div.height();
-		expect(maxScrollPos).toBe(scrollable.getMaxScrollPos());
-	});
-
-	it('should returns the right properties', function () {
-		expect(scrollable._getProp('scrollPos')).toBe('scrollTop');
-		expect(scrollable._getProp('scrollSize')).toBe('scrollHeight');
-		expect(scrollable._getProp('size')).toBe('height');
-		expect(scrollable._getProp('offset')).toBe('top');
-	});
-
-});
 
