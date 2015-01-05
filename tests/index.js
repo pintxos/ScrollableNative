@@ -56,7 +56,18 @@ function sharedTests (orientation) {
 		scrollable.setScrollPos(pos);
 
 		expect($div[props[orientation].scrollPos]()).toBe(pos);
+
+	});
+
+	it("should get the scrollPosition", function () {
+		var pos = 10;
+
+		expect(scrollable.getScrollPos()).toBe(0);
+
+		$div[props[orientation].scrollPos](pos);
+
 		expect(scrollable.getScrollPos()).toBe(pos);
+
 	});
 
 	it("should get the maskwidth correct", function () {
